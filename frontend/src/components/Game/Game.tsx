@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { startGame, submitGuess } from '../../api/numbers-api';
+import css from './Game.module.css';
 
 type GameState = {
   guess: number | string;
@@ -28,7 +29,7 @@ export const Game: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const result = await submitGuess(Number(gameState.guess));
-      setGameState({ ...gameState, result });
+      setGameState({ guess: '', result });
     } catch {
       console.error('Failed to submit the guess');
     }
@@ -39,10 +40,17 @@ export const Game: React.FC = () => {
   };
 
   return (
-    <div>
-      <input type="number" value={gameState.guess} onChange={handleChange} />
-      <button onClick={handleSubmit}>Submit Guess</button>
-      <div>{gameState.result}</div>
+    <div className={css.gameContainer}>
+      <input
+        className={css.guessInput}
+        value={gameState.guess}
+        onChange={handleChange}
+        placeholder="Введіть ваше число"
+      />
+      <button type="submit" className={css.submitButton} onClick={handleSubmit}>
+        Вгадати!
+      </button>
+      <div className={css.result}>{gameState.result}</div>
     </div>
   );
 };
