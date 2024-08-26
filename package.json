@@ -1,0 +1,13 @@
+{
+  "name": "guess-the-number-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Anna Taranchuk <taranchuk4@yahoo.com>",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {}
+}
