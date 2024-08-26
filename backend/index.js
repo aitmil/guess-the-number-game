@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
 
-import router from './routers/number.js';
+import router from './routers/numbers.js';
 import { routeNotFoundHandler } from './middlewares/routeNotFoundHandler.js';
 import { errorHandler } from './middlewares/internalErrorHandler.js';
 
