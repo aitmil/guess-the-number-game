@@ -1,0 +1,16 @@
+.app {
+  padding: 20px;
+}
+
+.header {
+  color: #ff6f61;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 3rem;
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding: 10px;
+  }
+}
