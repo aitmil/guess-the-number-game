@@ -41,6 +41,19 @@
   transform: translateY(-2px);
 }
 
+.guessInput:disabled,
+.submitButton:disabled {
+  background-color: #d3d3d3;
+  color: #a9a9a9;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.guessInput:disabled {
+  border: none;
+}
+
 .result {
   font-size: 2rem;
   margin-top: 20px;
@@ -48,7 +61,7 @@
 }
 
 .result.correct {
-  color: green;
+  color: #28a745;
 }
 
 .result.higher {
@@ -57,4 +70,24 @@
 
 .result.lower {
   color: blue;
+}
+
+.restartButton {
+  background-color: #28a745;
+  color: white;
+  padding: 15px;
+  width: 80%;
+  max-width: 300px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.restartButton:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
