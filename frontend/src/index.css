@@ -1,13 +1,15 @@
 :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background: linear-gradient(to right, #ffecd2, #fcb69f);
-  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 input,
