@@ -3,6 +3,7 @@ export const generateNumber = () => {
 };
 
 export const guessNumber = (guess, generatedNumber) => {
+  console.log(`Generated number: ${generatedNumber}`);
   if (guess < generatedNumber) {
     return 'Загадане число меньше';
   } else if (guess > generatedNumber) {
