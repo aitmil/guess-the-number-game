@@ -65,11 +65,11 @@
 }
 
 .result.higher {
-  color: orange;
+  color: #f39c12;
 }
 
 .result.lower {
-  color: blue;
+  color: #3498db;
 }
 
 .restartButton {
