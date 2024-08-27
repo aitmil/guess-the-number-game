@@ -1,0 +1,9 @@
+services:
+  bot:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - TELEGRAM_TOKEN=7115341078:AAFB8IfxbHbF6Lr2FLYr76-N2Sq8jkaJ7XU
+      - '3000:3000'
