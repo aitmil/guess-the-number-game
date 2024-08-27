@@ -7,12 +7,14 @@ import css from './Game.module.css';
 type GameState = {
   guess: number | string;
   result: string;
+  isGameOver: boolean;
 };
 
 export const Game: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>({
     guess: '',
     result: '',
+    isGameOver: false,
   });
 
   useEffect(() => {
@@ -20,6 +22,7 @@ export const Game: React.FC = () => {
       try {
         const message = await startGame();
         console.log(message);
+        setGameState({ guess: '', result: '', isGameOver: false });
       } catch {
         console.error('Failed to start the game');
       }
@@ -39,11 +42,17 @@ export const Game: React.FC = () => {
         !Number.isInteger(guessNumber)
       ) {
         toast.error('Введіть ціле число від 1 до 100 включно');
+        return;
       }
 
       const result = await submitGuess(guessNumber);
 
-      setGameState({ guess: '', result });
+      if (result === 'Число вгадано') {
+        toast.success('Ви вгадали число! Почніть нову гру.');
+        setGameState({ guess: '', result, isGameOver: true });
+      } else {
+        setGameState({ guess: '', result, isGameOver: false });
+      }
     } catch {
       console.error('Failed to submit the guess');
     }
@@ -51,6 +60,16 @@ export const Game: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGameState({ ...gameState, guess: e.target.value });
+  };
+
+  const handleRestart = async () => {
+    try {
+      const message = await startGame();
+      console.log(message);
+      setGameState({ guess: '', result: '', isGameOver: false });
+    } catch {
+      console.error('Failed to restart the game');
+    }
   };
 
   return (
@@ -61,15 +80,22 @@ export const Game: React.FC = () => {
           value={gameState.guess}
           onChange={handleChange}
           placeholder="Введіть ваше число"
+          disabled={gameState.isGameOver}
         />
         <button
           type="submit"
           className={css.submitButton}
           onClick={handleSubmit}
+          disabled={gameState.isGameOver}
         >
           Вгадати!
         </button>
         <div className={css.result}>{gameState.result}</div>
+        {gameState.isGameOver && (
+          <button className={css.restartButton} onClick={handleRestart}>
+            Почати знову
+          </button>
+        )}
       </div>
       <Toaster
         toastOptions={{
