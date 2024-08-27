@@ -9,6 +9,7 @@ type GameState = {
   guess: number | string;
   result: string;
   isGameOver: boolean;
+  isError: boolean;
 };
 
 export const Game: React.FC = () => {
@@ -16,15 +17,18 @@ export const Game: React.FC = () => {
     guess: '',
     result: '',
     isGameOver: false,
+    isError: false,
   });
 
   useEffect(() => {
     const initializeGame = async () => {
+      setGameState(prevState => ({ ...prevState, isError: false }));
       try {
         const message = await startGame();
         console.log(message);
-        setGameState({ guess: '', result: '', isGameOver: false });
       } catch {
+        setGameState(prevState => ({ ...prevState, isError: true }));
+        toast.error('Не вдалося почати гру. Будь ласка, спробуйте ще раз.');
         console.error('Failed to start the game');
       }
     };
@@ -33,6 +37,7 @@ export const Game: React.FC = () => {
   }, []);
 
   const handleSubmit = async () => {
+    setGameState(prevState => ({ ...prevState, isError: false }));
     try {
       const guessNumber = Number(gameState.guess);
 
@@ -50,25 +55,48 @@ export const Game: React.FC = () => {
 
       if (result === 'Число вгадано') {
         toast.success('Ви вгадали число! Почніть нову гру.');
-        setGameState({ guess: '', result, isGameOver: true });
+        setGameState(prevState => ({
+          ...prevState,
+          guess: '',
+          result,
+          isGameOver: true,
+        }));
       } else {
-        setGameState({ guess: '', result, isGameOver: false });
+        setGameState(prevState => ({
+          ...prevState,
+          guess: '',
+          result,
+          isGameOver: false,
+        }));
       }
     } catch {
+      setGameState(prevState => ({ ...prevState, isError: true }));
+      toast.error(
+        'Не вдалося надіслати ваше припущення. Будь ласка, спробуйте ще раз.'
+      );
       console.error('Failed to submit the guess');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGameState({ ...gameState, guess: e.target.value });
+    setGameState(prevState => ({ ...prevState, guess: e.target.value }));
   };
 
   const handleRestart = async () => {
+    setGameState(prevState => ({ ...prevState, isError: false }));
     try {
       const message = await startGame();
       console.log(message);
-      setGameState({ guess: '', result: '', isGameOver: false });
+      setGameState(prevState => ({
+        ...prevState,
+        result: '',
+        isGameOver: false,
+      }));
     } catch {
+      setGameState(prevState => ({ ...prevState, isError: true }));
+      toast.error(
+        'Не вдалося перезапустити гру. Будь ласка, спробуйте ще раз.'
+      );
       console.error('Failed to restart the game');
     }
   };
@@ -86,6 +114,16 @@ export const Game: React.FC = () => {
 
   return (
     <>
+      {/* {gameState.isLoading && <Loader />} */}
+      {gameState.isError && (
+        <Toaster
+          toastOptions={{
+            style: {
+              textAlign: 'center',
+            },
+          }}
+        />
+      )}
       <div className={css.gameContainer}>
         <input
           className={css.guessInput}
