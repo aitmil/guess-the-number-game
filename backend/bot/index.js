@@ -1,6 +1,6 @@
 import { Telegraf } from 'telegraf';
 
-const bot = new Telegraf('7115341078:AAFRo-G8pyWtimLUGkB3_dxosNvD9QqqjFU');
+const bot = new Telegraf('7115341078:AAFB8IfxbHbF6Lr2FLYr76-N2Sq8jkaJ7XU');
 
 bot.command('start', ctx => {
   ctx.reply('Click to play "Guess the Number"', {
