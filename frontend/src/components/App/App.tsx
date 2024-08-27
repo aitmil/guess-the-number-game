@@ -1,5 +1,5 @@
 import React from 'react';
-import { Game } from './Game/Game';
+import { Game } from '../Game/Game';
 import css from './App.module.css';
 
 const App: React.FC = () => {
