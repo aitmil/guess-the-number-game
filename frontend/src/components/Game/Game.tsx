@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import clsx from 'clsx';
 
 import { startGame, submitGuess } from '../../api/numbers-api';
 import css from './Game.module.css';
@@ -72,6 +73,17 @@ export const Game: React.FC = () => {
     }
   };
 
+  const getResultClass = () => {
+    if (gameState.result === 'Число вгадано') {
+      return css.correct;
+    } else if (gameState.result === 'Загадане число більше') {
+      return css.higher;
+    } else if (gameState.result === 'Загадане число меньше') {
+      return css.lower;
+    }
+    return '';
+  };
+
   return (
     <>
       <div className={css.gameContainer}>
@@ -90,7 +102,9 @@ export const Game: React.FC = () => {
         >
           Вгадати!
         </button>
-        <div className={css.result}>{gameState.result}</div>
+        <div className={clsx(css.result, getResultClass())}>
+          {gameState.result}
+        </div>
         {gameState.isGameOver && (
           <button className={css.restartButton} onClick={handleRestart}>
             Почати знову
